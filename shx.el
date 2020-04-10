@@ -299,7 +299,11 @@ behavior of this function by modifying `shx-directory-tracker-regexp'."
 
 (defun shx--all-commands (&optional without-prefix)
   "Return a list of all shx commands.
-With non-nil WITHOUT-PREFIX, strip `shx-cmd-prefix' from each."
+With non-nil WITHOUT-PREFIX, strip `shx-cmd-prefix' from each.
+>> (member \"shx-cmd-delay\" (shx--all-commands))
+=> (\"shx-cmd-delay\") ; i.e., not nil
+>> (not (member \"shx-cmd-prefix\" (shx--all-commands)))
+=> t"
   (declare (side-effect-free t))
   (mapcar (lambda (cmd)
             (if without-prefix (string-remove-prefix shx-cmd-prefix cmd) cmd))
