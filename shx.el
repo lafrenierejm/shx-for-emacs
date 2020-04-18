@@ -164,14 +164,14 @@ sacrifices the soundness of shx's markup and trigger matching."
     (find-file-at-point)))
 
 (defun shx-send-input-or-copy-line ()
-  "Copy current line to prompt, or send input if at the prompt."
+  "Copy line or region to prompt, or send input if at the prompt."
   (interactive)
   (if (shx-point-on-input-p)
       (shx-send-input)
-    (let ((line (string-trim (buffer-substring-no-properties
-                              (point-at-bol) (point-at-eol)))))
+    (let ((point-a (if (region-active-p) (region-beginning) (point-at-bol)))
+          (point-b (if (region-active-p) (region-end) (point-at-eol))))
       (goto-char (point-max))
-      (insert line))))
+      (insert (string-trim (buffer-substring-no-properties point-a point-b))))))
 
 (defun shx-send-input ()
   "Send or parse the input currently written at the prompt.
