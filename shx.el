@@ -162,8 +162,9 @@ sacrifices the soundness of shx's markup and trigger matching."
   (interactive)
   (if (shx-point-on-input-p)
       (shx-send-input)
-    (let ((point-a (if (region-active-p) (region-beginning) (point-at-bol)))
-          (point-b (if (region-active-p) (region-end) (point-at-eol))))
+    (let* ((inhibit-field-text-motion t)
+           (point-a (if (region-active-p) (region-beginning) (point-at-bol)))
+           (point-b (if (region-active-p) (region-end) (point-at-eol))))
       (goto-char (point-max))
       (insert (string-trim (buffer-substring-no-properties point-a point-b))))))
 
