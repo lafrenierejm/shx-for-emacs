@@ -334,7 +334,9 @@ This is robust to various styles of quoting and escaping."
 
 (defun shx-tokenize-filenames (str)
   "Turn STR into a list of filenames, or nil if parsing fails.
-If any path is absolute, prepend `comint-file-name-prefix' to it."
+If any path is absolute, prepend `comint-file-name-prefix' to it.
+>> (shx-tokenize \"'first' 'second token' /third\")
+=> (\"first\" \"second token\" \"/third\")"
   (declare (side-effect-free t))
   (mapcar (lambda (filename)
             (cond ((not (file-name-absolute-p filename)) filename)
